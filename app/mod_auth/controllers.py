@@ -38,3 +38,9 @@ def signin():
         flash('Wrong email or password', 'error-message')
 
     return render_template("auth/signin.html", form=form, o_user = user.get_list_user())
+
+@mod_auth.route('/add_user/', methods=['GET', 'POST'])
+def add_user():
+    admin = User("Admin", "admin@largeapp.com", "11111").add_user()
+    nam = User("Nam", "nhainam@largeapp.com", "11111").add_user()
+    return render_template("auth/../templates/auth/add_user.html", admin=admin, nam=nam)

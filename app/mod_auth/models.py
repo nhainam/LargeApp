@@ -39,5 +39,8 @@ class User(Base):
     def get_list_user(self):
         return self.query.all()
 
+    def add_user(self):
+        return db.session.add(self)
+
     def __repr__(self):
         return '<User %r>' % (self.name)                        
