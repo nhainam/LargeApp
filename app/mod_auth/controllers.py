@@ -1,7 +1,7 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template,\
                   flash, session, redirect, url_for
-from flask.ext.login import LoginManager, login_required
+from flask.ext.login import LoginManager, login_required, logout_user
 
 # Import password / encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -21,7 +21,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 from app import app
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+login_manager.login_view = "auth.login"
 
 @login_manager.user_loader
 def load_user(id):
@@ -29,6 +29,7 @@ def load_user(id):
 
 
 @mod_auth.route('/register', methods=['GET','POST'])
+@login_required
 def register():
     if request.method == 'GET':
         return render_template('auth/register.html')
@@ -44,6 +45,13 @@ def login():
     if request.method == 'GET':
         return render_template('auth/login.html')
     return redirect(url_for('home.index'))
+
+
+@mod_auth.route('/logout',methods=['GET','POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 
 @mod_auth.route('/profile',methods=['GET','POST'])
