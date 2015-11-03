@@ -7,9 +7,9 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Define the database - we are working with
 # SQLite for this example
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2cffi://root:root@localhost:5432/large_app"
+SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://root:root@localhost:5432/large_app"
 DATABASE_CONNECT_OPTIONS = {}
-
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
 # incoming requests using one and performing background

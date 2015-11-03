@@ -1,9 +1,10 @@
 # Import flask dependencies
-from flask import Blueprint, request, render_template, \
-                  flash, g, session, redirect, url_for
+from flask import Blueprint, request, render_template,\
+                  flash, session, redirect, url_for
+from flask.ext.login import LoginManager, login_required
 
 # Import password / encryption helper tools
-from werkzeug import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Import the database object from the main app module
 from app import db
@@ -17,30 +18,37 @@ from app.mod_auth.models import User
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
-# Set the route and accepted methods
-@mod_auth.route('/signin/', methods=['GET', 'POST'])
-def signin():
+from app import app
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-    # If sign in form is submitted
-    form = LoginForm(request.form)
-    # Verify the sign in form
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
 
-        if user and check_password_hash(user.password, form.password.data):
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
-            session['user_id'] = user.id
 
-            flash('Welcome %s' % user.name)
+@mod_auth.route('/register', methods=['GET','POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('auth/register.html')
+    user = User(request.form['username'] , request.form['password'],request.form['email'])
+    db.session.add(user)
+    db.session.commit()
+    flash('User successfully registered')
+    return redirect(url_for('auth.login'))
 
-            return redirect(url_for('auth.home'))
 
-        flash('Wrong email or password', 'error-message')
+@mod_auth.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('auth/login.html')
+    return redirect(url_for('home.index'))
 
-    return render_template("auth/signin.html", form=form, o_user = user.get_list_user())
 
-@mod_auth.route('/add_user/', methods=['GET', 'POST'])
-def add_user():
-    admin = User("Admin", "admin@largeapp.com", "11111").add_user()
-    nam = User("Nam", "nhainam@largeapp.com", "11111").add_user()
-    return render_template("auth/../templates/auth/add_user.html", admin=admin, nam=nam)
+@mod_auth.route('/profile',methods=['GET','POST'])
+@login_required
+def profile():
+    if request.method == 'GET':
+        return render_template('auth/profile.html')
+    return redirect(url_for('auth.login'))
