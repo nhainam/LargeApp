@@ -3,17 +3,16 @@ __author__="nhainam"
 from flask import Blueprint, render_template, redirect, url_for
 from flask.ext.login import LoginManager, login_required
 
-mod_product = Blueprint('product', __name__, url_prefix='/product')
+mod_product = Blueprint('product', __name__)
 
 
-@mod_product.route('/')
-@mod_product.route('/index')
-def list_product():
+@mod_product.route('/list', methods=['GET'])
+def list():
     return render_template('product/index.html')
 
 
-@mod_product.route('/detail/<product_id>')
-def detail_product(product_id):
+@mod_product.route('/detail/<product_id>', methods=['GET'])
+def detail(product_id):
     return render_template('product/detail.html', product_id = int(product_id))
 
 

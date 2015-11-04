@@ -5,6 +5,5 @@ from flask import Blueprint, render_template
 mod_home = Blueprint('home', __name__, url_prefix='/')
 
 @mod_home.route('/')
-@mod_home.route('/index')
-def home():
+def home_page():
     return render_template('home/index.html')

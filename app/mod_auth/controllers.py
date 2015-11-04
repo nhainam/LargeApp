@@ -16,12 +16,12 @@ from app.mod_auth.forms import LoginForm
 from app.mod_auth.models import User
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
-mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+mod_auth = Blueprint('auth', __name__)
 
 from app import app
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "auth.login"
+login_manager.login_view = "product.list"
 
 @login_manager.user_loader
 def load_user(id):
