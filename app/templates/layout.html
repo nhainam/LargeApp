@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link id="page_favicon" href="/favicon.ico" rel="icon" type="image/x-icon" />
     <title>{% block title %}My Site{% endblock %}</title>
     {% block css %}
     <link rel="stylesheet" href="/static/css/reset-min.css" />
@@ -10,8 +11,8 @@
     {% endblock %}
   </head>
   <body>
-    <div id="header">{% block header %}{% endblock %}</div>
+    <div id="header">{% include 'layout/header.html' %}</div>
     <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">{% block footer %}{% endblock %}</div>
+    <div id="footer">{% include 'layout/footer.html' %}</div>
   </body>
 </html>
