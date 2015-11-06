@@ -7,6 +7,7 @@ mod_product = Blueprint('product', __name__)
 
 
 @mod_product.route('/list', methods=['GET'])
+@login_required
 def list():
     return render_template('product/index.html')
 

@@ -1,7 +1,7 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template,\
-                  flash, session, redirect, url_for
-from flask.ext.login import LoginManager, login_required, logout_user
+                  flash, session, redirect, url_for, abort
+from flask.ext.login import LoginManager, login_required, logout_user, login_user
 
 # Import password / encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -21,7 +21,7 @@ mod_auth = Blueprint('auth', __name__)
 from app import app
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "product.list"
+login_manager.login_view = "auth.login"
 
 @login_manager.user_loader
 def load_user(id):
@@ -42,9 +42,22 @@ def register():
 
 @mod_auth.route('/login',methods=['GET','POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('auth/login.html')
-    return redirect(url_for('home.index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Login and validate the user.
+        # user should be an instance of your `User` class
+        login_user(user)
+
+        flash('Logged in successfully!')
+
+        next = request.args.get('next')
+        # next_is_valid should check if the user has valid
+        # permission to access the `next` url
+        if not next_is_valid(next):
+            return abort(400)
+        return redirect(next or url_for('product.list'))
+
+    return render_template('auth/login.html')
 
 
 @mod_auth.route('/logout',methods=['GET','POST'])
