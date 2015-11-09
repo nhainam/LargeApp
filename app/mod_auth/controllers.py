@@ -1,7 +1,7 @@
 # Import flask dependencies
 from flask import Blueprint, request, render_template,\
                   flash, session, redirect, url_for, abort
-from flask.ext.login import LoginManager, login_required, logout_user, login_user
+from flask.ext.login import LoginManager, login_required, logout_user, login_user, current_user
 
 # Import password / encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -42,25 +42,19 @@ def register():
 
 @mod_auth.route('/login',methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('product.list'))
     form = LoginForm()
     if form.validate_on_submit():
-        # Login and validate the user.
-        # user should be an instance of your `User` class
+        user = User.query.filter(User.email==request.form["email"]).first()
         login_user(user)
-
         flash('Logged in successfully!')
-
         next = request.args.get('next')
-        # next_is_valid should check if the user has valid
-        # permission to access the `next` url
-        if not next_is_valid(next):
-            return abort(400)
         return redirect(next or url_for('product.list'))
+    return render_template('auth/login.html', form=form)
 
-    return render_template('auth/login.html')
 
-
-@mod_auth.route('/logout',methods=['GET','POST'])
+@mod_auth.route('/logout',methods=['GET'])
 @login_required
 def logout():
     logout_user()

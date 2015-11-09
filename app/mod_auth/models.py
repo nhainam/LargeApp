@@ -30,10 +30,10 @@ class User(Base):
     status   = db.Column(db.SmallInteger, nullable=False)
 
     # New instance instantiation procedure
-    def __init__(self, name, email, password):
-        self.name     = name
-        self.email    = email
-        self.password = password
+    def __init__(self, data=[]):
+        if len(data) >= 0:
+            for field in data:
+                setattr(self, field, data[field])
 
     # def get_user(self, user_id):
     #     return db.session.query(User).get(user_id)
@@ -49,6 +49,9 @@ class User(Base):
 
     def get_id(self):
        return unicode(self.oid)
+
+    def filter_by_email(self):
+        return db.session.query.filter(email=self.email).first()
 
     def get_list_user(self):
         return self.query.all()
