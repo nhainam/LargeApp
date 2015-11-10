@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form class="form-horizontal" method="post" name="form_product" action="{{ url_for('product.add') }}">
+        <div class="form-group">
+            <label for="product-name" class="control-label col-xs-2">Name</label>
+
+            <div class="col-xs-6">
+                <input type="text" id="product-name" class="form-control" name="name" placeholder="Product name...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="product-summary" class="control-label col-xs-2">Summary</label>
+
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="product-summary" name="summary">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="product-description" class="control-label col-xs-2">Description</label>
+
+            <div class="col-xs-10">
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="product-price" class="control-label col-xs-2">Price</label>
+
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="product-price" name="price">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="product-image" class="control-label col-xs-2">Image</label>
+
+            <div class="col-xs-4">
+                <input type="file" class="form-control" id="product-image" name="image">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <div class="checkbox">
+                    <label><input name="status" type="checkbox" value="1"> Enable?</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

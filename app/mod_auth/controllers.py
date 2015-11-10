@@ -33,7 +33,7 @@ def load_user(id):
 def register():
     if request.method == 'GET':
         return render_template('auth/register.html')
-    user = User(request.form['username'] , request.form['password'],request.form['email'])
+    user = User(request.form['username'],request.form['password'],request.form['email'])
     db.session.add(user)
     db.session.commit()
     flash('User successfully registered')

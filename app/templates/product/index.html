@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>List products:</h1>
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <h1>List products:</h1>
+        </div>
+        <div class="col-xs-6 col-md-4 search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div><!-- /input-group -->
+        </div>
+    </div>
     <div id="four-columns" class="grid-container">
         <ul class="rig columns-4">
             <li>
