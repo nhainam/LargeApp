@@ -20,11 +20,11 @@ def add():
         o_product = MProduct(name=request.form.get('name'),
                              summary=request.form.get('summary'),
                              description=request.form.get('description'),
-                             image_id=1,
                              price=request.form.get('price'),
                              status=request.form.get('status'))
         if o_product.validate():
             o_product.add()
+            photos = UploadSet('photos', IMAGES)
             return redirect(url_for('product.list'))
     return render_template('product/add.html')
 
