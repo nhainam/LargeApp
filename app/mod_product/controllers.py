@@ -2,6 +2,7 @@ __author__ = "nhainam"
 
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask.ext.login import login_required
+from flask.ext.uploads import UploadSet
 from app.mod_product.models.mproduct import MProduct
 
 mod_product = Blueprint('product', __name__)
