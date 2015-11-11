@@ -19,7 +19,7 @@ class MImage(mbase.Base):
             setattr(self, k, v)
 
     def validate(self):
-        o_image = self.query.filter(self.name == self.name, self.file_name = self.file_name).first()
+        o_image = self.query.filter(self.product_id==self.product_id and self.file_name==self.file_name).first()
         if o_image:
             return False
         return True
@@ -27,7 +27,7 @@ class MImage(mbase.Base):
     def add(self):
         db.session.add(self)
         db.session.commit()
-        return True
+        return self.id
 
     def __repr__(self):
         return '<Product %r>' % (self.name)

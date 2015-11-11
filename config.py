@@ -25,3 +25,12 @@ CSRF_SESSION_KEY = "secret"
 
 # Secret key for signing cookies
 SECRET_KEY = "secret"
+
+# Path to upload files
+UPLOAD_FOLDER = './app/static/uploads'
+
+# Extension files to allow uploading
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+# Allow extension image
+ALLOWED_EXTENSION_IMAGES = set(['png', 'jpg', 'jpeg', 'gif'])

@@ -13,6 +13,7 @@ class MProduct(mbase.Base):
     summary     = db.Column(db.String(250), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price       = db.Column(db.Integer, nullable=False)
+    status      = db.Column(db.SmallInteger, nullable=False)
 
     # New instance instantiation procedure
     def __init__(self, **kwargs):
@@ -21,7 +22,7 @@ class MProduct(mbase.Base):
 
 
     def validate(self):
-        o_product =  self.query.filter(self.name==self.name).first()
+        o_product =  self.query.filter_by(name=self.name).first()
         if o_product:
             return False
         return True
@@ -29,7 +30,7 @@ class MProduct(mbase.Base):
     def add(self):
         db.session.add(self)
         db.session.commit()
-        return True
+        return self.id
 
 
     def __repr__(self):

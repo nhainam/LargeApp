@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form class="form-horizontal" method="post" name="form_product" action="{{ url_for('product.add') }}">
+    <form class="form-horizontal" method="post" name="form_product" enctype="multipart/form-data" action="{{ url_for('product.add') }}">
         <div class="form-group">
             <label for="product-name" class="control-label col-xs-2">Name</label>
 
