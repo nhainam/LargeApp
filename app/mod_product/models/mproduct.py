@@ -2,7 +2,7 @@ __author__="nhainam"
 
 from app import db
 from app.mod_product.models import mbase
-
+from app.mod_product.models.mimage import MImage
 # Define a Product model
 class MProduct(mbase.Base):
 
@@ -19,6 +19,30 @@ class MProduct(mbase.Base):
     def __init__(self, **kwargs):
     	for k, v in kwargs.items():
     		setattr(self, k, v)
+
+    def get_list(self):
+        query = db.session.query(
+                MProduct.id,
+                MProduct.name,
+                MProduct.summary,
+                MProduct.description,
+                MProduct.price,
+                MImage.file_name).\
+            join(MImage, MProduct.id==MImage.product_id).\
+            all()
+        return query
+
+    def get_detail(self, product_id):
+        query = db.session.query(
+                MProduct.id,
+                MProduct.name,
+                MProduct.summary,
+                MProduct.description,
+                MProduct.price,
+                MImage.file_name).\
+            join(MImage, MProduct.id==MImage.product_id).\
+            filter(MProduct.id==product_id)
+        return query.first()
 
 
     def validate(self):

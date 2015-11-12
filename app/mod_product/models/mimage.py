@@ -30,4 +30,4 @@ class MImage(mbase.Base):
         return self.id
 
     def __repr__(self):
-        return '<Product %r>' % (self.name)
+        return '<Image %r>' % (self.file_name)

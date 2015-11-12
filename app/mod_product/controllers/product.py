@@ -8,7 +8,9 @@ from utils import file as file_utils
 from werkzeug import secure_filename
 
 def list():
-    return render_template('product/index.html')
+    product_lists = MProduct().get_list()
+    print product_lists
+    return render_template('product/index.html', product_lists=product_lists)
 
 
 def add():
@@ -39,4 +41,5 @@ def add():
 
 
 def detail(product_id):
-    return render_template('product/detail.html', product_id=int(product_id))
+    product_detail = MProduct().get_detail(product_id)
+    return render_template('product/detail.html', product_detail=product_detail)

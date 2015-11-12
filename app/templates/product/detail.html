@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>Product {{ product_id }}</p>
+    {% if product_detail %}
+        <p>Product ID: {{ product_detail.id}}</p>
+        <p>Product Name: {{ product_detail.name}}</p>
+        <p>Product Price: {{ product_detail.price}}</p>
+        <p>Product Summary: {{ product_detail.summary}}</p>
+        <p>Product Description: {{ product_detail.description}}</p>
+        <p>Product Image: <img src="/static/uploads/{{ product_detail.file_name}}" title="{{ product_detail.name}}" /> </p>
+        <p><a href="{{ url_for('product.cart_add_product', product_id=product_detail.id) }}">Add Cart</a></p>
+    {% endif %}
 {% endblock %}

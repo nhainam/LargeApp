@@ -16,66 +16,15 @@
     </div>
     <div id="four-columns" class="grid-container">
         <ul class="rig columns-4">
+            {% if product_lists: %}
+                {% for product in product_lists: %}
             <li>
-                <img src="/static/images/pri_001.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <img src="/static/uploads/{{ product.file_name }}" />
+                <h3><a href="{{ url_for('product.detail', product_id=product.id) }}">{{ product.name }}</a></h3>
+                <p>{{ product.summary }}</p>
             </li>
-            <li>
-                <img src="/static/images/pri_002.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_003.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_004.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_005.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_006.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_007.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_008.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_009.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_010.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_011.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
-            <li>
-                <img src="/static/images/pri_012.jpg" />
-                <h3>Image Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </li>
+                {% endfor %}
+            {% endif %}
         </ul>
     </div>
     <!--/#four-columns-->
